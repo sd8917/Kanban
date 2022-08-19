@@ -1,23 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import { CheckSquare, Clock, MoreHorizontal } from "react-feather";
 import Chip from "../Chip/Chip";
+import DropDown from "../DropDown/DropDown";
 
 import "./Card.css";
 
-const Card = () => {
+const Card = (props) => {
+  const [showDropDown, setShowDropDown] = useState(false);
+
   return (
-    <div className="card">
+    <div
+      className="card"
+      draggable
+      onDragEnd={() => props.handleDragEnd(props.card?.id, props.boardId)}
+      onDragEnter={() => props.handleDragEnter(props.card?.id, props.boardId)}
+    >
       <div className="card_top">
         <div className="card_top_labels">
-          <Chip text="Frontend" color="yellow" />
+          {props.card?.labels?.map((item, index) => (
+            <Chip key={index} text={item.text} color={item.color} />
+          ))}
         </div>
-        <MoreHorizontal />
+        <div
+          className="card_top_more"
+          onClick={() => setShowDropDown(!showDropDown)}
+        >
+          <MoreHorizontal />
+          {showDropDown && (
+            <DropDown>
+              <div className="card-dropdown">
+                <p
+                  onClick={() =>
+                    props.removeCard(props.card?.id, props.boardId)
+                  }
+                >
+                  Delete Card
+                </p>
+              </div>
+            </DropDown>
+          )}
+        </div>
       </div>
-      <div className="card_title">Team meeting</div>
+      <div className="card_title">{props.card?.title}</div>
       <div className="card_footer">
-        <p>
-          <Clock /> 29sep
-        </p>
+        {props.card?.date && (
+          <p>
+            <Clock /> 29sep {props.card.date}
+          </p>
+        )}
+
         <p>
           <CheckSquare /> 1/4
         </p>

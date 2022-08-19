@@ -11,6 +11,22 @@
   display: flex;
 }
 
+.board_top_more {
+  position: relative;
+  cursor: pointer;
+}
+
+.board-dropdown {
+  background-color: #fff;
+  width: 130px;
+  padding: 10px;
+  border-radius: 3px;
+  box-shadow: 1px 0 20px rgba(0, 0, 0, 0.05);
+}
+.board-dropdown p {
+  cursor: pointer;
+}
+
 .board_top_title {
   flex: 1;
   display: flex;
